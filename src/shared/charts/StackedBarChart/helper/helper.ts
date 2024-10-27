@@ -40,6 +40,7 @@
  * @property {string} scales.y.grid.color - Color of the y-axis grid lines.
  */
 export const chartOptions = {
+  indexAxis: 'x',
   maintainAspectRatio: false,
   aspectRatio: 0.8,
   plugins: {

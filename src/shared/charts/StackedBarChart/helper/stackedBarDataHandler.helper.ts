@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { dateFormater } from "../../../../helper/dateFormater.helper";
+import { extractUniqueValuesHandler } from "../../../../helper/uniqueValueExtracter.helper";
 import { Post } from "../../../../models/post.interface";
+
+type GroupedData = { [source: string]: number[] };
 
 /**
  * Processes chart data to generate a structure suitable for a stacked bar chart.
@@ -15,26 +18,25 @@ import { Post } from "../../../../models/post.interface";
  */
 export const StackedBarDataHandler = (chartData: Post[]) => {
   // Extracts unique dates from the provided chart data
-  const uniqueDates: number[] = [...new Set(chartData.map((item) => item.date))];
+  const uniqueDates: number[] = extractUniqueValuesHandler(chartData, 'date') as number[];
 
   // Groups the chart data by source and date
-  const groupedData: any = {};
-  chartData.forEach(({ source, date, numMentions }) => {
-    if (!groupedData[source])
-      groupedData[source] = Array(uniqueDates.length).fill(0);
+  const groupedData = chartData.reduce<GroupedData>((acc, { source, date, numMentions }) => {
+    acc[source] = acc[source] || Array(uniqueDates.length).fill(0);
     const dateIndex = uniqueDates.indexOf(date);
-    groupedData[source][dateIndex] = numMentions;
-  });
+    acc[source][dateIndex] = numMentions;
+    return acc;
+  }, {});
 
-  // Formats the grouped data into a structure suitable for the chart
   const datasets = Object.entries(groupedData).map(([source, data]) => ({
-    type: "bar",
+    type: 'bar',
     label: source,
     data,
   }));
 
   return {
-    labels: uniqueDates.map((date) => dateFormater(date, "MMM dd, yyyy")),
+    labels: uniqueDates.map((date) => dateFormater(date, 'MMM dd, yyyy')),
     datasets,
   };
+
 };

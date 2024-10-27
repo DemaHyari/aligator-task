@@ -11,6 +11,9 @@ import { Reach } from "./models/reach.interface";
 import { Platform } from "./models/platform.interface";
 import { POST_DATA } from "./services/post.service";
 import LineChart from "./shared/charts/LineChart/LineChart";
+import { RANKING_DATA } from "./services/ranking.service";
+import { Ranking } from "./models/ranking.interface";
+import { Post } from "./models/post.interface";
 
 function App() {
   return (
@@ -54,11 +57,20 @@ function App() {
           fromDate={POST_DATA.startDate}
           toDate={POST_DATA.endDate}
         />
-        <StackedBarChart StackChartData={POST_DATA.data} />
+        <StackedBarChart StackChartData={POST_DATA.data as Post[]} option='x' />
       </Card>
       <Card classList="grid-span--3">
         <Header
           title="Key Topics - Ranking"
+          fromDate={RANKING_DATA.startDate}
+          toDate={RANKING_DATA.endDate}
+        />
+        <StackedBarChart StackChartData={RANKING_DATA.data as Ranking[]} option='y' />
+      </Card>
+
+      <Card classList="grid-span--3">
+        <Header
+          title="Claims"
           fromDate={POST_DATA.startDate}
           toDate={POST_DATA.endDate}
         />
