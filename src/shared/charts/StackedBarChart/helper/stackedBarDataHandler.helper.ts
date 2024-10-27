@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { dateFormater } from "../../../../helper/dateFormater.helper";
 import { Post } from "../../../../models/post.interface";
 
@@ -13,9 +14,10 @@ import { Post } from "../../../../models/post.interface";
  * @returns {number[]} return.datasets[].data - An array of mention counts corresponding to the dates.
  */
 export const StackedBarDataHandler = (chartData: Post[]) => {
-  const uniqueDates = [...new Set(chartData.map((item) => item.date))];
+  // Extracts unique dates from the provided chart data
+  const uniqueDates: number[] = [...new Set(chartData.map((item) => item.date))];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Groups the chart data by source and date
   const groupedData: any = {};
   chartData.forEach(({ source, date, numMentions }) => {
     if (!groupedData[source])
@@ -24,7 +26,7 @@ export const StackedBarDataHandler = (chartData: Post[]) => {
     groupedData[source][dateIndex] = numMentions;
   });
 
-
+  // Formats the grouped data into a structure suitable for the chart
   const datasets = Object.entries(groupedData).map(([source, data]) => ({
     type: "bar",
     label: source,

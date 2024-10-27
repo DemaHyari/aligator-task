@@ -11,12 +11,16 @@ interface Props {
 }
 
 const PieChartComponent = (props: Props) => {
+  // Destructures the `pieChartData` and `type` properties from the `props` object
   const { pieChartData, type } = props;
+
+  // Destructures the `labels`, `values`, and `backgroundColor` properties from the object returned by the `PieChartDataHandler` function
   const { labels, values, backgroundColor } = PieChartDataHandler(
     pieChartData,
     type
   );
 
+  // Creates a `chartData` object with the `labels`, `values`, and `backgroundColor` properties
   const chartData = {
     labels: labels,
     datasets: [

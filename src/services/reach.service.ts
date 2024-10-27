@@ -7,22 +7,22 @@ export const REACH_DATA: Chart = {
     {
       source: "Facebook",
       sourceColor: "#1877f2",
-      reachCount: 22100
+      estimatedReach: 400
     },
     {
       source: "Twitter",
       sourceColor: "#000000",
-      reachCount: 10280
+      estimatedReach: 310
     },
     {
       source: "Youtube",
       sourceColor: "#ff0000",
-      reachCount: 8005
+      estimatedReach: 260
     },
     {
       source: "Instagram",
       sourceColor: "#c32aa3",
-      reachCount: 25000
+      estimatedReach: 720
     }
   ]
 }

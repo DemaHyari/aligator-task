@@ -8,8 +8,13 @@ interface Props {
 }
 
 const LineChart = (props: Props) => {
+  // Destructures the `lineChartData` property from the `props` object
   const { lineChartData } = props;
+
+  // Destructures the `labels` and `datasets` properties from the object returned by the `LineChartDataHandler` function
   const { labels, datasets } = LineChartDataHandler(lineChartData);
+
+  // Creates a `chartData` object with the `labels` and `datasets` properties
   const chartData = {
     labels: labels,
     datasets: datasets,

@@ -16,8 +16,13 @@ export const PieChartDataHandler = (
   chartData: Platform[] | Engagement[] | Reach[],
   type: string
 ) => {
+  //Extracts the 'source' property from each object in the chartData array.
   const labels = chartData.map((data) => data.source);
+
+  //Extracts the 'sourceColor' property from each object in the chartData array.
   const backgroundColor = chartData.map((data) => data.sourceColor);
+
+  //Extracts the 'numMentions', 'engagementCount', or 'estimatedReach' property from each object in the chartData array based on the type.
   const values: number[] = [];
   switch (type) {
     case "platform":
@@ -32,7 +37,7 @@ export const PieChartDataHandler = (
       );
       break;
     case "reach":
-      (chartData as Reach[]).map((data: Reach) => values.push(data.reachCount));
+      (chartData as Reach[]).map((data: Reach) => values.push(data.estimatedReach));
       break;
   }
 

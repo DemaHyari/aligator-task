@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { dateFormater } from "../../../../helper/dateFormater.helper";
 import { Post } from "../../../../models/post.interface";
 
@@ -16,9 +17,10 @@ import { Post } from "../../../../models/post.interface";
  * - `tension`: A number representing the tension of the line (always 0.4).
  */
 export const LineChartDataHandler = (chartData: Post[]) => {
+  // Extracts unique dates from the provided chart data
   const uniqueDates = [...new Set(chartData.map((item) => item.date))];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Groups the chart data by source and date
   const groupedData: any = {};
   chartData.forEach(({ source, date, numMentions }) => {
     if (!groupedData[source])
@@ -27,6 +29,7 @@ export const LineChartDataHandler = (chartData: Post[]) => {
     groupedData[source][dateIndex] = numMentions;
   });
 
+  // Formats the grouped data into a structure suitable for the chart
   const datasets = Object.entries(groupedData).map(([source, data]) => ({
     label: source,
     data,
